@@ -9,7 +9,12 @@ export default function Main() {
           to enjoy every day.
         </h1>
         <p className="mb-4">Be the first to know when we launch.</p>
-        <button>Request an invite</button>
+        <button
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#requestInviteModal">
+          Request an invite
+        </button>
       </div>
     </main>
   );
