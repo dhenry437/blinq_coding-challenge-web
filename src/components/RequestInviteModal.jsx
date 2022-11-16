@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function RequestInviteModal() {
+  const [fields, setFields] = useState({
+    name: "",
+    email: "",
+    confirmEmail: "",
+  });
+
+  // Generic change handler
+  const handleInputChange = event => {
+    setFields({ ...fields, [event.target.name]: event.target.value });
+  };
+
   return (
     <div
       class="modal fade"
@@ -21,7 +32,9 @@ export default function RequestInviteModal() {
                   type="email"
                   class="form-control"
                   placeholder="Full name"
-                  id="exampleInputEmail1"
+                  name="name"
+                  value={fields.name}
+                  onChange={handleInputChange}
                 />
               </div>
               <div class="mb-3">
@@ -29,7 +42,9 @@ export default function RequestInviteModal() {
                   type="email"
                   class="form-control"
                   placeholder="Email"
-                  id="exampleInputPassword1"
+                  name="email"
+                  value={fields.email}
+                  onChange={handleInputChange}
                 />
               </div>
               <div class="mb-5">
@@ -37,7 +52,9 @@ export default function RequestInviteModal() {
                   type="email"
                   class="form-control"
                   placeholder="Confirm email"
-                  id="exampleInputPassword1"
+                  name="confirmEmail"
+                  value={fields.confirmEmail}
+                  onChange={handleInputChange}
                 />
               </div>
               <button type="submit" className="mb-3 mt-1">
