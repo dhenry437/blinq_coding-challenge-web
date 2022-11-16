@@ -5,9 +5,10 @@ export default function Footer() {
     <footer className="footer mt-auto py-3">
       <div className="container">
         <span>
-          Made with &#10084; in Melbourne.
+          {/* Made with &#10084; in Melbourne. */}
+          Made with &hearts; in Melbourne.
           <br />
-          &copy; 2022 Broccolli & Co. All rights reserved.
+          &copy; 2022 Brocolli & Co. All rights reserved.
         </span>
       </div>
     </footer>

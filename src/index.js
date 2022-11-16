@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import axios from "axios";
+
+// Base URL for axios
+axios.defaults.baseURL = 'https://us-central1-blinkapp-684c1.cloudfunctions.net';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
