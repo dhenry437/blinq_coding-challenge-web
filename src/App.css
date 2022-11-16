@@ -1,38 +1,56 @@
-.App {
+/* Containers need 100% height for the main flex column */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+/* Font */
+body {
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 600;
+  color: grey;
+}
+
+.navbar {
+  background-color: white;
+  border-bottom: 1px solid grey;
+}
+
+.navbar-brand,
+.navbar-brand:focus,
+.navbar-brand:hover {
+  color: grey; /* Override default navbar link colour */
+  font-size: 1.5rem;
+}
+
+main .container {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+main h1 {
+  font-size: 3rem;
+  font-weight: 600;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+main p {
+  font-size: 1.3rem;
+  font-weight: 400;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+main button {
+  border: 1px solid grey;
+  background-color: white;
+  color: grey;
+  padding: 0.8rem;
+  font-size: 1.3rem;
 }
 
-.App-link {
-  color: #61dafb;
+footer {
+  background-color: white;
+  border-top: 1px solid grey;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+footer .container {
+  text-align: center;
 }
