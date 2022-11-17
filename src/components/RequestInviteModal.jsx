@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { requestInvite } from "../data/repository";
 
 export default function RequestInviteModal() {
   const [fields, setFields] = useState({
@@ -10,6 +11,83 @@ export default function RequestInviteModal() {
   // Generic change handler
   const handleInputChange = event => {
     setFields({ ...fields, [event.target.name]: event.target.value });
+  };
+
+  const validateInput = (score, condition, input) => {
+    // Apply styles to relavant inputs based on condition
+    if (condition) {
+      input.classList.add("is-valid");
+      input.classList.remove("is-invalid");
+
+      // Return score + 1 for a true condition
+      return ++score;
+    } else {
+      input.classList.add("is-invalid");
+      input.classList.remove("is-valid");
+
+      return score;
+    }
+  };
+
+  const validateForm = () => {
+    let validationScore = 0;
+    let requiredScore = 0;
+
+    const nameInput = document.getElementById("nameInput");
+    const emailInput = document.getElementById("emailInput");
+    const confirmEmailInput = document.getElementById("confirmEmailInput");
+
+    // Validate name is not blank
+    requiredScore++;
+    validationScore = validateInput(
+      validationScore,
+      fields.name.trim() !== "",
+      nameInput
+    );
+
+    // Validate email is valid
+    requiredScore++;
+    const emailRegex =
+      /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+    validationScore = validateInput(
+      validationScore,
+      emailRegex.test(fields.email),
+      emailInput
+    );
+
+    // Validate confirm email matches email
+    requiredScore++;
+    validationScore = validateInput(
+      validationScore,
+      fields.email.trim() === fields.confirmEmail.trim() &&
+        fields.confirmEmail.trim() !== "",
+      confirmEmailInput
+    );
+
+    // Return true if scores match
+    return validationScore === requiredScore;
+  };
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+    console.log("handleSubmit()");
+
+    // Return if form is invalid
+    if (!validateForm()) return;
+
+    // Destructure fields
+    const { name, email } = fields;
+
+    // Send request
+    const response = await requestInvite(name, email);
+
+    console.log(response);
+
+    if (response.status === 200) {
+      // Success
+    } else {
+      // Error display messsage from server
+    }
   };
 
   return (
@@ -26,12 +104,16 @@ export default function RequestInviteModal() {
           </div>
           <hr className="mb-5" />
           <div>
-            <form className="d-flex flex-column">
+            <form
+              className="d-flex flex-column"
+              onSubmit={handleSubmit}
+              noValidate>
               <div class="mb-3 mt-1">
                 <input
-                  type="email"
+                  type="text"
                   class="form-control"
                   placeholder="Full name"
+                  id="nameInput"
                   name="name"
                   value={fields.name}
                   onChange={handleInputChange}
@@ -42,6 +124,7 @@ export default function RequestInviteModal() {
                   type="email"
                   class="form-control"
                   placeholder="Email"
+                  id="emailInput"
                   name="email"
                   value={fields.email}
                   onChange={handleInputChange}
@@ -52,6 +135,7 @@ export default function RequestInviteModal() {
                   type="email"
                   class="form-control"
                   placeholder="Confirm email"
+                  id="confirmEmailInput"
                   name="confirmEmail"
                   value={fields.confirmEmail}
                   onChange={handleInputChange}
