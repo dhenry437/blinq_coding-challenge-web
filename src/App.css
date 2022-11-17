@@ -20,7 +20,8 @@ body {
 .navbar-brand,
 .navbar-brand:focus,
 .navbar-brand:hover {
-  color: grey; /* Override default navbar link colour */
+  color: grey;
+  /* Override default navbar link colour */
   font-size: 1.5rem;
 }
 
