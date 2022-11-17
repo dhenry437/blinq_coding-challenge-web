@@ -7,6 +7,7 @@ export default function RequestInviteModal() {
     email: "",
     confirmEmail: "",
   });
+  const [error, setError] = useState(null);
 
   // Generic change handler
   const handleInputChange = event => {
@@ -70,7 +71,9 @@ export default function RequestInviteModal() {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    console.log("handleSubmit()");
+
+    // Clear errors
+    setError(null);
 
     // Return if form is invalid
     if (!validateForm()) return;
@@ -86,7 +89,9 @@ export default function RequestInviteModal() {
     if (response.status === 200) {
       // Success
     } else {
-      // Error display messsage from server
+      // Error
+      // Display messsage from server
+      setError(response?.data?.errorMessage || "Error, try again later."); // Display error or a fallback message
     }
   };
 
@@ -145,6 +150,13 @@ export default function RequestInviteModal() {
                 Submit
               </button>
             </form>
+            {error && (
+              <div className="w-100 text-center mt-2">
+                <span>
+                  <i>{error}</i>
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>
