@@ -8,6 +8,7 @@ export default function RequestInviteModal() {
     confirmEmail: "",
   });
   const [error, setError] = useState(null);
+  const [requestedInvite, setRequestedInvite] = useState(false); // State to determine if the request for invite has been completed
 
   // Generic change handler
   const handleInputChange = event => {
@@ -84,10 +85,28 @@ export default function RequestInviteModal() {
     // Send request
     const response = await requestInvite(name, email);
 
-    console.log(response);
-
     if (response.status === 200) {
       // Success
+      // Clear inputs
+      setFields({
+        name: "",
+        email: "",
+        confirmEmail: "",
+      });
+
+      // Clear validation
+      const inputs = [
+        document.getElementById("nameInput"),
+        document.getElementById("emailInput"),
+        document.getElementById("confirmEmailInput"),
+      ];
+      inputs.forEach(input => {
+        input.classList.remove("is-valid");
+        input.classList.remove("is-invalid");
+      });
+
+      // Display complete message
+      setRequestedInvite(true);
     } else {
       // Error
       // Display messsage from server
@@ -104,60 +123,84 @@ export default function RequestInviteModal() {
       aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content p-4">
-          <div className="d-flex justify-content-center">
-            <h4 className="my-3">Request an Invite</h4>
-          </div>
-          <hr className="mb-5" />
-          <div>
-            <form
-              className="d-flex flex-column"
-              onSubmit={handleSubmit}
-              noValidate>
-              <div class="mb-3 mt-1">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Full name"
-                  id="nameInput"
-                  name="name"
-                  value={fields.name}
-                  onChange={handleInputChange}
-                />
+          {!requestedInvite ? (
+            <>
+              <div className="d-flex justify-content-center">
+                <h4 className="my-3">Request an Invite</h4>
               </div>
-              <div class="mb-3">
-                <input
-                  type="email"
-                  class="form-control"
-                  placeholder="Email"
-                  id="emailInput"
-                  name="email"
-                  value={fields.email}
-                  onChange={handleInputChange}
-                />
+              <hr className="mb-5" />
+              <div>
+                <form
+                  className="d-flex flex-column"
+                  onSubmit={handleSubmit}
+                  noValidate>
+                  <div class="mb-3 mt-1">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Full name"
+                      id="nameInput"
+                      name="name"
+                      value={fields.name}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <input
+                      type="email"
+                      class="form-control"
+                      placeholder="Email"
+                      id="emailInput"
+                      name="email"
+                      value={fields.email}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div class="mb-5">
+                    <input
+                      type="email"
+                      class="form-control"
+                      placeholder="Confirm email"
+                      id="confirmEmailInput"
+                      name="confirmEmail"
+                      value={fields.confirmEmail}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <button type="submit" className="mb-3 mt-1">
+                    Submit
+                  </button>
+                </form>
+                {error && (
+                  <div className="w-100 text-center mt-2">
+                    <span>
+                      <i>{error}</i>
+                    </span>
+                  </div>
+                )}
               </div>
-              <div class="mb-5">
-                <input
-                  type="email"
-                  class="form-control"
-                  placeholder="Confirm email"
-                  id="confirmEmailInput"
-                  name="confirmEmail"
-                  value={fields.confirmEmail}
-                  onChange={handleInputChange}
-                />
+            </>
+          ) : (
+            <>
+              <div className="d-flex justify-content-center">
+                <h4 className="my-3">All done!</h4>
               </div>
-              <button type="submit" className="mb-3 mt-1">
-                Submit
+              <hr className="mb-5" />
+              <div className="w-100 text-center mb-4">
+                <p>
+                  You will be one of the first to experience <br />
+                  Brocolli & Co. when we launch.
+                </p>
+              </div>
+              <button
+                type="button"
+                className="mb-3"
+                data-bs-dismiss="modal"
+                aria-label="Close">
+                OK
               </button>
-            </form>
-            {error && (
-              <div className="w-100 text-center mt-2">
-                <span>
-                  <i>{error}</i>
-                </span>
-              </div>
-            )}
-          </div>
+            </>
+          )}
         </div>
       </div>
     </div>
