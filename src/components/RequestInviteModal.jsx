@@ -116,13 +116,13 @@ export default function RequestInviteModal() {
 
   return (
     <div
-      class="modal fade"
+      className="modal fade"
       id="requestInviteModal"
-      tabindex="-1"
+      tabIndex="-1"
       aria-labelledby="requestInviteModalLabel"
       aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content p-4">
+      <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-content p-4">
           {!requestedInvite ? (
             <>
               <div className="d-flex justify-content-center">
@@ -134,10 +134,10 @@ export default function RequestInviteModal() {
                   className="d-flex flex-column"
                   onSubmit={handleSubmit}
                   noValidate>
-                  <div class="mb-3 mt-1">
+                  <div className="mb-3 mt-1">
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       placeholder="Full name"
                       id="nameInput"
                       name="name"
@@ -145,10 +145,10 @@ export default function RequestInviteModal() {
                       onChange={handleInputChange}
                     />
                   </div>
-                  <div class="mb-3">
+                  <div className="mb-3">
                     <input
                       type="email"
-                      class="form-control"
+                      className="form-control"
                       placeholder="Email"
                       id="emailInput"
                       name="email"
@@ -156,10 +156,10 @@ export default function RequestInviteModal() {
                       onChange={handleInputChange}
                     />
                   </div>
-                  <div class="mb-5">
+                  <div className="mb-5">
                     <input
                       type="email"
-                      class="form-control"
+                      className="form-control"
                       placeholder="Confirm email"
                       id="confirmEmailInput"
                       name="confirmEmail"
