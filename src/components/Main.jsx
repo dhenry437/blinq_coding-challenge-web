@@ -11,6 +11,7 @@ export default function Main() {
         <p className="mb-4">Be the first to know when we launch.</p>
         <button
           type="button"
+          className="mb-3"
           data-bs-toggle="modal"
           data-bs-target="#requestInviteModal">
           Request an invite
